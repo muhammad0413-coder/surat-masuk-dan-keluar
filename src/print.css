@@ -229,6 +229,8 @@ table.table-agenda-print td.col-center {
   header.app-topbar,
   .no-print,
   .sidebar,
+  .app-sidebar,
+  .sidebar-backdrop,
   .btn,
   .modal-backdrop,
   .action-buttons,
@@ -239,7 +241,7 @@ table.table-agenda-print td.col-center {
     display: none !important;
   }
 
-  /* Reset body and html for high-fidelity printing */
+  /* Reset body and layout container offsets for high-fidelity printing */
   html, body {
     background: #ffffff !important;
     color: #000000 !important;
@@ -248,8 +250,32 @@ table.table-agenda-print td.col-center {
     line-height: 1.35 !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 100% !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+
+  /* Ensure app layout does not push content or maintain screen sidebar margin */
+  .app-container {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .app-main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: auto !important;
+    display: block !important;
+  }
+
+  .page-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
   }
 
   .print-only {
@@ -261,13 +287,12 @@ table.table-agenda-print td.col-center {
   }
 
   /* CETAK BUKU AGENDA (LANDSCAPE F4 / FOLIO: 330mm x 215mm) */
-  @page print-agenda {
+  @page {
     size: 330mm 215mm landscape;
-    margin: 12mm 15mm 15mm 15mm;
+    margin: 10mm 12mm 10mm 12mm;
   }
 
   .agenda-print-sheet {
-    page: print-agenda;
     page-break-after: always;
     width: 100% !important;
     max-width: 100% !important;
@@ -277,38 +302,25 @@ table.table-agenda-print td.col-center {
     box-shadow: none !important;
   }
 
-  /* CETAK COVER BUKU AGENDA (LANDSCAPE F4 / FOLIO: 330mm x 215mm) */
-  @page print-cover {
-    size: 330mm 215mm landscape;
-    margin: 8mm 12mm 8mm 12mm;
-  }
-
+  /* COVER STYLING IN PRINT MEDIA */
   .cover-wrapper {
     margin: 0 !important;
     padding: 0 !important;
+    width: 100% !important;
     overflow: hidden !important;
-    height: 100% !important;
     page-break-after: avoid !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
 
   .cover-print-sheet {
-    page: print-cover !important;
     page-break-after: avoid !important;
     page-break-before: avoid !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     width: 100% !important;
-    height: 194mm !important;
-    max-height: 194mm !important;
-    min-height: 194mm !important;
-    aspect-ratio: auto !important;
     box-shadow: none !important;
-    padding: 16mm 22mm !important;
-    border: 4px double #000000 !important;
     box-sizing: border-box !important;
-    margin: 0 auto !important;
     overflow: hidden !important;
   }
 
