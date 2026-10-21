@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.admin == true ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Admins collection:
+    // Users can read their own admin doc to verify their role
+    // Only existing admins can list or write admin docs
+    match /admins/{userId} {
+      allow get: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Surat Masuk & Keluar (Letters collection)
+    // Strictly restricted to authorized admins
+    match /letters/{letterId} {
+      allow read, write: if isAdmin();
+    }
+
+    // School settings (identity, kepala sekolah, operator, tahun buku)
+    match /settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Audit logs
+    match /logs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

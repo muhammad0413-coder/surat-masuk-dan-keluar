@@ -1,0 +1,312 @@
+/* ==========================================================================
+   CSS KHUSUS CETAK RESMI (F4 / FOLIO) — SD NEGERI KESILIR 02
+   F4 Paper Dimension: 215mm x 330mm
+   ========================================================================== */
+
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+@media print {
+  /* Hide all interactive non-print elements */
+  nav,
+  aside,
+  header.app-topbar,
+  .no-print,
+  .sidebar,
+  .btn,
+  .modal-backdrop,
+  .action-buttons,
+  .filter-bar,
+  .pagination,
+  .toast-container {
+    display: none !important;
+  }
+
+  /* Reset body and html for high-fidelity printing */
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: "Times New Roman", Times, serif !important;
+    font-size: 11pt !important;
+    line-height: 1.35 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     1. CETAK BUKU AGENDA (LANDSCAPE F4 / FOLIO: 330mm x 215mm)
+     -------------------------------------------------------------------------- */
+  @page print-agenda {
+    size: 330mm 215mm landscape;
+    margin: 12mm 15mm 15mm 15mm;
+  }
+
+  .agenda-print-sheet {
+    page: print-agenda;
+    page-break-after: always;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Official Kop Surat */
+  .kop-surat {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-bottom: 3px double #000000 !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .kop-logo {
+    width: 75px !important;
+    height: 75px !important;
+    object-fit: contain !important;
+  }
+
+  .kop-text {
+    text-align: center !important;
+    flex: 1 !important;
+    padding: 0 12px !important;
+  }
+
+  .kop-text h4 {
+    margin: 0 !important;
+    font-size: 11pt !important;
+    font-weight: normal !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+  }
+
+  .kop-text h3 {
+    margin: 1px 0 !important;
+    font-size: 12pt !important;
+    font-weight: bold !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+  }
+
+  .kop-text h2 {
+    margin: 2px 0 !important;
+    font-size: 14pt !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+  }
+
+  .kop-text p.kop-alamat {
+    margin: 3px 0 0 0 !important;
+    font-size: 8.5pt !important;
+    font-style: italic !important;
+  }
+
+  /* Agenda Document Title */
+  .agenda-header-title {
+    text-align: center !important;
+    margin-bottom: 14px !important;
+  }
+
+  .agenda-header-title h1 {
+    font-size: 13pt !important;
+    font-weight: bold !important;
+    margin: 0 0 4px 0 !important;
+    text-transform: uppercase !important;
+    text-decoration: underline !important;
+  }
+
+  .agenda-header-title p {
+    font-size: 10.5pt !important;
+    margin: 0 !important;
+    font-weight: bold !important;
+  }
+
+  /* Agenda Table Formatted strictly according to requirement */
+  table.table-agenda-print {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+    font-size: 9pt !important;
+    line-height: 1.25 !important;
+  }
+
+  table.table-agenda-print th,
+  table.table-agenda-print td {
+    border: 1px solid #000000 !important;
+    padding: 5px 4px !important;
+    vertical-align: top !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  table.table-agenda-print th {
+    background-color: #f2f2f2 !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  /* EXACT 9 Columns Column-Width Definitions */
+  table.table-agenda-print col.col-1 { width: 3.5%; }   /* No */
+  table.table-agenda-print col.col-2 { width: 9%; }     /* Tanggal */
+  table.table-agenda-print col.col-3 { width: 13.5%; }  /* No Surat Masuk */
+  table.table-agenda-print col.col-4 { width: 13.5%; }  /* No Surat Keluar */
+  table.table-agenda-print col.col-5 { width: 17%; }    /* Perihal */
+  table.table-agenda-print col.col-6 { width: 14.5%; }  /* Alamat Surat */
+  table.table-agenda-print col.col-7 { width: 16%; }    /* Isi Surat */
+  table.table-agenda-print col.col-8 { width: 8%; }     /* Keterangan */
+  table.table-agenda-print col.col-9 { width: 5%; }     /* Bukti Surat */
+
+  /* Text alignments */
+  table.table-agenda-print td.col-center {
+    text-align: center !important;
+  }
+
+  /* ==========================================================================
+     CRITICAL PRINT RULE:
+     Kolom Bukti Surat (Kolom 9) TETAP ADA, BORDER TETAP ADA, LEBAR TETAP ADA,
+     tetapi ISI DI DALAM CELL DIKOSONGKAN SAAT DICETAK!
+     TIDAK MENGGUNAKAN display: none PADA SEL KOLOM!
+     ========================================================================== */
+  table.table-agenda-print th.col-bukti-surat {
+    text-align: center !important;
+  }
+
+  table.table-agenda-print td.col-bukti-surat {
+    background-color: transparent !important;
+  }
+
+  /* Blank out all content inside Bukti Surat cells on print */
+  table.table-agenda-print td.col-bukti-surat * {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Signature Block at bottom */
+  .signature-block {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-top: 24px !important;
+    page-break-inside: avoid !important;
+  }
+
+  .signature-box {
+    width: 250px !important;
+    text-align: center !important;
+    font-size: 10pt !important;
+  }
+
+  .signature-box .signer-title {
+    margin-bottom: 60px !important;
+  }
+
+  .signature-box .signer-name {
+    font-weight: bold !important;
+    text-decoration: underline !important;
+    margin: 0 !important;
+  }
+
+  .signature-box .signer-nip {
+    margin: 2px 0 0 0 !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     2. CETAK COVER BUKU AGENDA (PORTRAIT F4 / FOLIO: 215mm x 330mm)
+     -------------------------------------------------------------------------- */
+  @page print-cover {
+    size: 215mm 330mm portrait;
+    margin: 20mm;
+  }
+
+  .cover-print-sheet {
+    page: print-cover;
+    page-break-after: always;
+    border: 4px double #000000;
+    padding: 24px 20px;
+    height: 94%;
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    text-align: center !important;
+  }
+
+  .cover-top-logos {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important;
+    margin-top: 15px !important;
+  }
+
+  .cover-logo-img {
+    width: 90px !important;
+    height: 90px !important;
+    object-fit: contain !important;
+  }
+
+  .cover-title-section {
+    margin: 30px 0 !important;
+  }
+
+  .cover-title-section h1 {
+    font-size: 20pt !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    line-height: 1.3 !important;
+    margin: 0 0 10px 0 !important;
+    text-transform: uppercase !important;
+  }
+
+  .cover-title-section h2 {
+    font-size: 15pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    margin: 0 !important;
+    text-transform: uppercase !important;
+  }
+
+  .cover-meta-section {
+    margin: 40px auto !important;
+    width: 75% !important;
+    border-top: 2px solid #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+    padding: 18px 0 !important;
+  }
+
+  .cover-meta-section p {
+    font-size: 14pt !important;
+    font-weight: 600 !important;
+    margin: 4px 0 !important;
+  }
+
+  .cover-footer-section {
+    margin-bottom: 25px !important;
+  }
+
+  .cover-footer-section h3 {
+    font-size: 14pt !important;
+    font-weight: bold !important;
+    margin: 2px 0 !important;
+    text-transform: uppercase !important;
+  }
+
+  .cover-footer-section p {
+    font-size: 10.5pt !important;
+    margin: 2px 0 0 0 !important;
+  }
+}

@@ -1,0 +1,45 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.admin == true ||
+        firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Letter attachments
+    match /letters/{letterId}/{fileName} {
+      allow read: if isAuthenticated();
+
+      // Only authorized admins can upload with size (< 25MB) and type validation
+      allow write: if isAdmin()
+        && request.resource.size < 25 * 1024 * 1024
+        && (
+          request.resource.contentType.matches('application/pdf')
+          || request.resource.contentType.matches('image/(jpeg|png|jpg)')
+          || request.resource.contentType.matches('application/msword')
+          || request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+          || request.resource.contentType.matches('application/octet-stream')
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    // School logos and branding
+    match /assets/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Default deny
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
