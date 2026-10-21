@@ -293,13 +293,28 @@ table.table-agenda-print td.col-center {
   }
 
   .agenda-print-sheet {
-    page-break-after: always;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     border: none !important;
     box-shadow: none !important;
+  }
+
+  table.table-agenda-print {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    page-break-inside: auto !important;
+  }
+
+  table.table-agenda-print thead {
+    display: table-header-group !important;
+  }
+
+  table.table-agenda-print tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   /* COVER STYLING IN PRINT MEDIA */

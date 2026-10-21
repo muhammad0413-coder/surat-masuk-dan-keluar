@@ -91,7 +91,61 @@ export default function PrintAgenda({
   }).format(new Date());
 
   return (
-    <div className="page-content" style={{ padding: '20px' }}>
+    <div className="page-content agenda-page-container">
+      {/* Embedded print style to guarantee 100% full-width fit on F4 Landscape paper */}
+      <style>{`
+        .agenda-page-container {
+          padding: 20px;
+        }
+
+        @media print {
+          @page {
+            size: 330mm 215mm landscape;
+            margin: 10mm 12mm 12mm 12mm;
+          }
+          *, *::before, *::after {
+            box-sizing: border-box !important;
+          }
+          html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            background: #ffffff !important;
+          }
+          #root, .app-container, .app-main, .page-content, .agenda-page-container {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            display: block !important;
+            position: static !important;
+          }
+          .agenda-print-sheet {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+          }
+          .kop-surat {
+            width: 100% !important;
+            display: flex !important;
+          }
+          table.table-agenda-print {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+          }
+          .signature-block {
+            width: 100% !important;
+            page-break-inside: avoid !important;
+          }
+        }
+      `}</style>
+
       {/* On-screen Print Control Card */}
       <div className="toolbar-card no-print">
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -206,7 +260,7 @@ export default function PrintAgenda({
       {/* =========================================================================
           PRINT SHEET: Strict adherence to F4 Landscape specifications
           ========================================================================= */}
-      <div className="agenda-print-sheet" style={{ background: '#ffffff', padding: '20px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+      <div className="agenda-print-sheet">
         {/* Kop Surat Resmi */}
         <div className="kop-surat" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '3px double #000000', paddingBottom: '10px', marginBottom: '16px' }}>
           <img
@@ -236,7 +290,6 @@ export default function PrintAgenda({
         {/* Title */}
         <div className="agenda-header-title">
           <h1>BUKU AGENDA SURAT MASUK DAN SURAT KELUAR</h1>
-          <p>{getPeriodLabel()}</p>
         </div>
 
         {/* 8-Column Clean Table (No column numbers, Bukti Surat not in print) */}
