@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Printer, ArrowLeft } from 'lucide-react';
 
 export default function PrintCover({ schoolSettings, onBack }) {
-  const [coverYear, setCoverYear] = useState(
-    schoolSettings?.tahunAktif || new Date().getFullYear().toString()
-  );
-
   const handlePrint = () => {
     window.print();
   };
@@ -26,60 +22,32 @@ export default function PrintCover({ schoolSettings, onBack }) {
               Cetak Cover Buku Agenda (Format F4 Landscape / Mendatar)
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748b' }}>
-              Cover resmi jilid buku agenda surat masuk & surat keluar sesuai ukuran standar kertas F4 landscape.
+              Cover jilid pas 100% kertas F4 landscape (330mm × 215mm) tanpa perlu mengatur ulang margin/skala printer.
             </p>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ fontSize: '13px', fontWeight: 600 }}>Tahun:</span>
-            <input
-              type="text"
-              className="form-control"
-              style={{ width: '90px', padding: '6px 10px', textAlign: 'center', fontWeight: 700 }}
-              value={coverYear}
-              onChange={(e) => setCoverYear(e.target.value)}
-            />
-          </div>
           <button className="btn btn-primary" onClick={handlePrint}>
             <Printer size={17} />
-            <span>Cetak Cover (F4 Landscape)</span>
+            <span>Cetak Cover Sekarang (F4 Landscape 100%)</span>
           </button>
         </div>
       </div>
 
       {/* =========================================================================
-          PRINT COVER SHEET: Strict adherence to F4 Landscape (330mm x 215mm)
+          PRINT COVER SHEET: Strict 100% Fit for F4 Landscape (330mm x 215mm)
           ========================================================================= */}
-      <div className="cover-wrapper" style={{ overflowX: 'auto', padding: '10px 0' }}>
-        <div
-          className="cover-print-sheet"
-          style={{
-            background: '#ffffff',
-            maxWidth: '900px',
-            width: '100%',
-            aspectRatio: '330 / 215',
-            margin: '0 auto',
-            border: '4px double #000000',
-            padding: '35px 30px',
-            boxSizing: 'border-box',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            textAlign: 'center',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)'
-          }}
-        >
+      <div className="cover-wrapper">
+        <div className="cover-print-sheet">
           {/* Top Title Section */}
-          <div className="cover-title-section" style={{ width: '100%', marginTop: '5px' }}>
+          <div className="cover-title-section">
             <h1
               style={{
-                fontSize: '26pt',
+                fontSize: '28pt',
                 fontWeight: 800,
-                letterSpacing: '2px',
-                margin: '0 0 6px 0',
+                letterSpacing: '2.5px',
+                margin: '0 0 8px 0',
                 textTransform: 'uppercase',
                 fontFamily: '"Times New Roman", Times, serif',
                 lineHeight: 1.2
@@ -89,10 +57,10 @@ export default function PrintCover({ schoolSettings, onBack }) {
             </h1>
             <h2
               style={{
-                fontSize: '18pt',
+                fontSize: '20pt',
                 fontWeight: 700,
                 letterSpacing: '1.5px',
-                margin: '0 0 10px 0',
+                margin: '0',
                 textTransform: 'uppercase',
                 fontFamily: '"Times New Roman", Times, serif',
                 lineHeight: 1.25
@@ -100,52 +68,25 @@ export default function PrintCover({ schoolSettings, onBack }) {
             >
               SURAT MASUK &amp; SURAT KELUAR
             </h2>
-            <div
-              style={{
-                fontSize: '14pt',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                fontFamily: '"Times New Roman", Times, serif',
-                marginTop: '4px'
-              }}
-            >
-              TAHUN {coverYear}
-            </div>
           </div>
 
-          {/* Center Section: Tut Wuri Handayani Logo Only */}
-          <div
-            className="cover-center-logo"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '15px 0'
-            }}
-          >
+          {/* Center Section: Official Tut Wuri Handayani Logo Only */}
+          <div className="cover-center-logo">
             <img
               src="/assets/logo-tutwuri.png"
               alt="Logo Tut Wuri Handayani"
               className="cover-tutwuri-logo"
-              style={{
-                width: '135px',
-                height: '135px',
-                maxWidth: '135px',
-                maxHeight: '135px',
-                objectFit: 'contain'
-              }}
             />
           </div>
 
           {/* Bottom School Identity Section */}
-          <div className="cover-footer-section" style={{ width: '100%', marginBottom: '5px' }}>
+          <div className="cover-footer-section">
             <h3
               style={{
-                fontSize: '20pt',
+                fontSize: '21pt',
                 fontWeight: 800,
                 letterSpacing: '1.5px',
-                margin: '0 0 4px 0',
+                margin: '0 0 6px 0',
                 textTransform: 'uppercase',
                 fontFamily: '"Times New Roman", Times, serif',
                 lineHeight: 1.2
@@ -155,10 +96,10 @@ export default function PrintCover({ schoolSettings, onBack }) {
             </h3>
             <h4
               style={{
-                fontSize: '15pt',
+                fontSize: '16pt',
                 fontWeight: 700,
                 letterSpacing: '1px',
-                margin: '0 0 4px 0',
+                margin: '0 0 6px 0',
                 textTransform: 'uppercase',
                 fontFamily: '"Times New Roman", Times, serif',
                 lineHeight: 1.25
@@ -168,13 +109,13 @@ export default function PrintCover({ schoolSettings, onBack }) {
             </h4>
             <h5
               style={{
-                fontSize: '13pt',
-                fontWeight: 600,
+                fontSize: '14pt',
+                fontWeight: 700,
                 letterSpacing: '0.5px',
                 margin: 0,
                 textTransform: 'uppercase',
                 fontFamily: '"Times New Roman", Times, serif',
-                color: '#334155'
+                color: '#1e293b'
               }}
             >
               KABUPATEN JEMBER

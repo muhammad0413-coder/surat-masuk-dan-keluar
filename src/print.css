@@ -280,21 +280,36 @@ table.table-agenda-print td.col-center {
   /* CETAK COVER BUKU AGENDA (LANDSCAPE F4 / FOLIO: 330mm x 215mm) */
   @page print-cover {
     size: 330mm 215mm landscape;
-    margin: 12mm 15mm 15mm 15mm;
+    margin: 8mm 12mm 8mm 12mm;
+  }
+
+  .cover-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    height: 100% !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .cover-print-sheet {
-    page: print-cover;
-    page-break-after: always;
+    page: print-cover !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
     width: 100% !important;
-    height: 100% !important;
-    max-width: 100% !important;
-    min-height: 0 !important;
+    height: 194mm !important;
+    max-height: 194mm !important;
+    min-height: 194mm !important;
     aspect-ratio: auto !important;
     box-shadow: none !important;
-    padding: 24px 30px !important;
+    padding: 16mm 22mm !important;
     border: 4px double #000000 !important;
     box-sizing: border-box !important;
+    margin: 0 auto !important;
+    overflow: hidden !important;
   }
 
   table.table-agenda-print th {
