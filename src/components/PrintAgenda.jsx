@@ -208,25 +208,27 @@ export default function PrintAgenda({
           ========================================================================= */}
       <div className="agenda-print-sheet" style={{ background: '#ffffff', padding: '20px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
         {/* Kop Surat Resmi */}
-        <div className="kop-surat">
+        <div className="kop-surat" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '3px double #000000', paddingBottom: '10px', marginBottom: '16px' }}>
           <img
             src={schoolSettings?.logoKiriUrl || '/assets/logo-kabupaten-jember.png'}
             alt="Logo Kabupaten Jember"
             className="kop-logo"
+            style={{ width: '75px', height: '75px', maxWidth: '75px', maxHeight: '75px', objectFit: 'contain', flexShrink: 0 }}
             onError={(e) => { e.target.style.visibility = 'hidden'; }}
           />
 
-          <div className="kop-text">
-            <h4>{schoolSettings?.pemerintah || 'PEMERINTAH KABUPATEN JEMBER'}</h4>
-            <h3>{schoolSettings?.dinas || 'DINAS PENDIDIKAN'}</h3>
-            <h2>{schoolSettings?.namaSekolah || 'SEKOLAH DASAR NEGERI KESILIR 02'}</h2>
-            <h4>{schoolSettings?.kecamatan || 'KECAMATAN WULUHAN'}</h4>
+          <div className="kop-text" style={{ textAlign: 'center', flex: 1, padding: '0 16px' }}>
+            <h4 style={{ margin: 0, fontSize: '11pt', textTransform: 'uppercase' }}>{schoolSettings?.pemerintah || 'PEMERINTAH KABUPATEN JEMBER'}</h4>
+            <h3 style={{ margin: '1px 0', fontSize: '12pt', fontWeight: 'bold', textTransform: 'uppercase' }}>{schoolSettings?.dinas || 'DINAS PENDIDIKAN'}</h3>
+            <h2 style={{ margin: '2px 0', fontSize: '14pt', fontWeight: 800, textTransform: 'uppercase' }}>{schoolSettings?.namaSekolah || 'SEKOLAH DASAR NEGERI KESILIR 02'}</h2>
+            <h4 style={{ margin: 0, fontSize: '11pt', textTransform: 'uppercase' }}>{schoolSettings?.kecamatan || 'KECAMATAN WULUHAN'}</h4>
           </div>
 
           <img
             src={schoolSettings?.logoKananUrl || '/assets/logo-sdn-kesilir-02.png'}
             alt="Logo SDN Kesilir 02"
             className="kop-logo"
+            style={{ width: '75px', height: '75px', maxWidth: '75px', maxHeight: '75px', objectFit: 'contain', flexShrink: 0 }}
             onError={(e) => { e.target.style.visibility = 'hidden'; }}
           />
         </div>

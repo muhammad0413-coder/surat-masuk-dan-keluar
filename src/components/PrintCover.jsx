@@ -64,17 +64,19 @@ export default function PrintCover({ schoolSettings, onBack }) {
       >
         {/* Top Section with Dual Logos */}
         <div>
-          <div className="cover-top-logos">
+          <div className="cover-top-logos" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px', marginTop: '15px' }}>
             <img
               src={schoolSettings?.logoKiriUrl || '/assets/logo-kabupaten-jember.png'}
               alt="Logo Kabupaten Jember"
               className="cover-logo-img"
+              style={{ width: '90px', height: '90px', maxWidth: '90px', maxHeight: '90px', objectFit: 'contain' }}
               onError={(e) => { e.target.style.visibility = 'hidden'; }}
             />
             <img
               src={schoolSettings?.logoKananUrl || '/assets/logo-sdn-kesilir-02.png'}
               alt="Logo SDN Kesilir 02"
               className="cover-logo-img"
+              style={{ width: '90px', height: '90px', maxWidth: '90px', maxHeight: '90px', objectFit: 'contain' }}
               onError={(e) => { e.target.style.visibility = 'hidden'; }}
             />
           </div>
