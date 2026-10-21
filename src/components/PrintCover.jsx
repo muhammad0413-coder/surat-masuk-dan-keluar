@@ -23,94 +23,163 @@ export default function PrintCover({ schoolSettings, onBack }) {
           )}
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: 700 }}>
-              Cetak Cover Buku Agenda (Format F4 / Folio Portrait)
+              Cetak Cover Buku Agenda (Format F4 Landscape / Mendatar)
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748b' }}>
-              Cover resmi jilid buku agenda surat masuk dan keluar SD Negeri Kesilir 02.
+              Cover resmi jilid buku agenda surat masuk & surat keluar sesuai ukuran standar kertas F4 landscape.
             </p>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ fontSize: '13px', fontWeight: 600 }}>Tahun Buku:</span>
+            <span style={{ fontSize: '13px', fontWeight: 600 }}>Tahun:</span>
             <input
               type="text"
               className="form-control"
-              style={{ width: '100px', padding: '6px 10px' }}
+              style={{ width: '90px', padding: '6px 10px', textAlign: 'center', fontWeight: 700 }}
               value={coverYear}
               onChange={(e) => setCoverYear(e.target.value)}
             />
           </div>
           <button className="btn btn-primary" onClick={handlePrint}>
             <Printer size={17} />
-            <span>Cetak Cover (F4 Portrait)</span>
+            <span>Cetak Cover (F4 Landscape)</span>
           </button>
         </div>
       </div>
 
       {/* =========================================================================
-          PRINT COVER SHEET: Strict adherence to F4 Portrait specifications
+          PRINT COVER SHEET: Strict adherence to F4 Landscape (330mm x 215mm)
           ========================================================================= */}
-      <div
-        className="cover-print-sheet"
-        style={{
-          background: '#ffffff',
-          maxWidth: '750px',
-          margin: '0 auto',
-          boxShadow: 'var(--shadow-md)',
-          minHeight: '900px'
-        }}
-      >
-        {/* Top Section with Dual Logos */}
-        <div>
-          <div className="cover-top-logos" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px', marginTop: '15px' }}>
+      <div className="cover-wrapper" style={{ overflowX: 'auto', padding: '10px 0' }}>
+        <div
+          className="cover-print-sheet"
+          style={{
+            background: '#ffffff',
+            maxWidth: '900px',
+            width: '100%',
+            aspectRatio: '330 / 215',
+            margin: '0 auto',
+            border: '4px double #000000',
+            padding: '35px 30px',
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            textAlign: 'center',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)'
+          }}
+        >
+          {/* Top Title Section */}
+          <div className="cover-title-section" style={{ width: '100%', marginTop: '5px' }}>
+            <h1
+              style={{
+                fontSize: '26pt',
+                fontWeight: 800,
+                letterSpacing: '2px',
+                margin: '0 0 6px 0',
+                textTransform: 'uppercase',
+                fontFamily: '"Times New Roman", Times, serif',
+                lineHeight: 1.2
+              }}
+            >
+              BUKU AGENDA
+            </h1>
+            <h2
+              style={{
+                fontSize: '18pt',
+                fontWeight: 700,
+                letterSpacing: '1.5px',
+                margin: '0 0 10px 0',
+                textTransform: 'uppercase',
+                fontFamily: '"Times New Roman", Times, serif',
+                lineHeight: 1.25
+              }}
+            >
+              SURAT MASUK &amp; SURAT KELUAR
+            </h2>
+            <div
+              style={{
+                fontSize: '14pt',
+                fontWeight: 700,
+                letterSpacing: '1px',
+                fontFamily: '"Times New Roman", Times, serif',
+                marginTop: '4px'
+              }}
+            >
+              TAHUN {coverYear}
+            </div>
+          </div>
+
+          {/* Center Section: Tut Wuri Handayani Logo Only */}
+          <div
+            className="cover-center-logo"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '15px 0'
+            }}
+          >
             <img
-              src={schoolSettings?.logoKiriUrl || '/assets/logo-kabupaten-jember.png'}
-              alt="Logo Kabupaten Jember"
-              className="cover-logo-img"
-              style={{ width: '90px', height: '90px', maxWidth: '90px', maxHeight: '90px', objectFit: 'contain' }}
-              onError={(e) => { e.target.style.visibility = 'hidden'; }}
-            />
-            <img
-              src={schoolSettings?.logoKananUrl || '/assets/logo-sdn-kesilir-02.png'}
-              alt="Logo SDN Kesilir 02"
-              className="cover-logo-img"
-              style={{ width: '90px', height: '90px', maxWidth: '90px', maxHeight: '90px', objectFit: 'contain' }}
-              onError={(e) => { e.target.style.visibility = 'hidden'; }}
+              src="/assets/logo-tutwuri.png"
+              alt="Logo Tut Wuri Handayani"
+              className="cover-tutwuri-logo"
+              style={{
+                width: '135px',
+                height: '135px',
+                maxWidth: '135px',
+                maxHeight: '135px',
+                objectFit: 'contain'
+              }}
             />
           </div>
 
-          {/* Department Header */}
-          <div style={{ marginTop: '20px', textAlign: 'center' }}>
-            <h4 style={{ fontSize: '12pt', fontWeight: 600, margin: '2px 0', textTransform: 'uppercase' }}>
-              {schoolSettings?.pemerintah || 'PEMERINTAH KABUPATEN JEMBER'}
-            </h4>
-            <h3 style={{ fontSize: '13pt', fontWeight: 700, margin: '2px 0', textTransform: 'uppercase' }}>
-              {schoolSettings?.dinas || 'DINAS PENDIDIKAN'}
+          {/* Bottom School Identity Section */}
+          <div className="cover-footer-section" style={{ width: '100%', marginBottom: '5px' }}>
+            <h3
+              style={{
+                fontSize: '20pt',
+                fontWeight: 800,
+                letterSpacing: '1.5px',
+                margin: '0 0 4px 0',
+                textTransform: 'uppercase',
+                fontFamily: '"Times New Roman", Times, serif',
+                lineHeight: 1.2
+              }}
+            >
+              {schoolSettings?.namaSekolah || 'SEKOLAH DASAR NEGERI KESILIR 02'}
             </h3>
+            <h4
+              style={{
+                fontSize: '15pt',
+                fontWeight: 700,
+                letterSpacing: '1px',
+                margin: '0 0 4px 0',
+                textTransform: 'uppercase',
+                fontFamily: '"Times New Roman", Times, serif',
+                lineHeight: 1.25
+              }}
+            >
+              {schoolSettings?.kecamatan || 'KECAMATAN WULUHAN'}
+            </h4>
+            <h5
+              style={{
+                fontSize: '13pt',
+                fontWeight: 600,
+                letterSpacing: '0.5px',
+                margin: 0,
+                textTransform: 'uppercase',
+                fontFamily: '"Times New Roman", Times, serif',
+                color: '#334155'
+              }}
+            >
+              KABUPATEN JEMBER
+            </h5>
           </div>
-        </div>
-
-        {/* Central Title Section */}
-        <div className="cover-title-section">
-          <h1>BUKU AGENDA</h1>
-          <h2>SURAT MASUK & SURAT KELUAR</h2>
-
-          <div className="cover-meta-section">
-            <p>TAHUN ANGGARAN / PERIODE</p>
-            <p style={{ fontSize: '24pt', fontWeight: 800, letterSpacing: '2px' }}>
-              {coverYear}
-            </p>
-          </div>
-        </div>
-
-        {/* School Footer Identity */}
-        <div className="cover-footer-section">
-          <h3>{schoolSettings?.namaSekolah || 'SEKOLAH DASAR NEGERI KESILIR 02'}</h3>
-          <h4 style={{ fontSize: '12pt', fontWeight: 600, margin: '3px 0', textTransform: 'uppercase' }}>
-            {schoolSettings?.kecamatan || 'KECAMATAN WULUHAN'}
-          </h4>
         </div>
       </div>
     </div>

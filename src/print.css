@@ -159,7 +159,7 @@ table.table-agenda-print td.col-center {
 }
 
 /* --------------------------------------------------------------------------
-   COVER BUKU AGENDA STYLES
+   COVER BUKU AGENDA STYLES (F4 LANDSCAPE: 330mm x 215mm)
    -------------------------------------------------------------------------- */
 .cover-print-sheet {
   background: #ffffff;
@@ -169,77 +169,27 @@ table.table-agenda-print td.col-center {
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
+  align-items: center !important;
   text-align: center !important;
   font-family: "Times New Roman", Times, serif !important;
 }
 
-.cover-top-logos {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 30px !important;
-  margin-top: 15px !important;
-}
-
-.cover-logo-img {
-  width: 90px !important;
-  height: 90px !important;
-  max-width: 90px !important;
-  max-height: 90px !important;
+.cover-tutwuri-logo {
+  width: 135px !important;
+  height: 135px !important;
+  max-width: 135px !important;
+  max-height: 135px !important;
   object-fit: contain !important;
 }
 
 .cover-title-section {
-  margin: 30px 0 !important;
-}
-
-.cover-title-section h1 {
-  font-size: 20pt !important;
-  font-weight: 800 !important;
-  letter-spacing: 1.5px !important;
-  line-height: 1.3 !important;
-  margin: 0 0 10px 0 !important;
-  text-transform: uppercase !important;
-}
-
-.cover-title-section h2 {
-  font-size: 15pt !important;
-  font-weight: 700 !important;
-  letter-spacing: 1px !important;
-  margin: 0 !important;
-  text-transform: uppercase !important;
-}
-
-.cover-meta-section {
-  margin: 40px auto !important;
-  width: 75% !important;
-  border-top: 2px solid #000000 !important;
-  border-bottom: 2px solid #000000 !important;
-  padding: 18px 0 !important;
-}
-
-.cover-meta-section p {
-  font-size: 14pt !important;
-  font-weight: 600 !important;
-  margin: 4px 0 !important;
+  width: 100% !important;
+  margin-top: 5px !important;
 }
 
 .cover-footer-section {
-  margin-bottom: 25px !important;
-}
-
-.cover-footer-section h3 {
-  font-size: 14pt !important;
-  font-weight: bold !important;
-  margin: 2px 0 !important;
-  text-transform: uppercase !important;
-}
-
-.cover-footer-section h4 {
-  font-size: 12pt !important;
-  font-weight: 600 !important;
-  margin: 2px 0 !important;
-  text-transform: uppercase !important;
+  width: 100% !important;
+  margin-bottom: 5px !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -260,10 +210,11 @@ table.table-agenda-print td.col-center {
   }
 
   .cover-print-sheet {
-    max-width: 650px !important;
-    min-height: 850px !important;
+    max-width: 900px !important;
+    width: 100% !important;
+    aspect-ratio: 330 / 215 !important;
     margin: 20px auto !important;
-    padding: 40px 30px !important;
+    padding: 35px 30px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
   }
 }
@@ -326,18 +277,24 @@ table.table-agenda-print td.col-center {
     box-shadow: none !important;
   }
 
-  /* CETAK COVER BUKU AGENDA (PORTRAIT F4 / FOLIO: 215mm x 330mm) */
+  /* CETAK COVER BUKU AGENDA (LANDSCAPE F4 / FOLIO: 330mm x 215mm) */
   @page print-cover {
-    size: 215mm 330mm portrait;
-    margin: 20mm;
+    size: 330mm 215mm landscape;
+    margin: 12mm 15mm 15mm 15mm;
   }
 
   .cover-print-sheet {
     page: print-cover;
     page-break-after: always;
-    height: 94%;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
     box-shadow: none !important;
-    padding: 24px 20px;
+    padding: 24px 30px !important;
+    border: 4px double #000000 !important;
+    box-sizing: border-box !important;
   }
 
   table.table-agenda-print th {
