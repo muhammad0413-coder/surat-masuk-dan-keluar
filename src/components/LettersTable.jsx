@@ -8,8 +8,10 @@ import {
   Paperclip,
   Calendar,
   XCircle,
-  FileText
+  FileText,
+  Download
 } from 'lucide-react';
+import { exportLettersToExcel } from '../services/excel';
 
 export default function LettersTable({
   letters,
@@ -73,6 +75,22 @@ export default function LettersTable({
 
   const hasActiveFilters = Boolean(searchTerm || startDate || endDate);
 
+  const handleExportExcel = () => {
+    const prefix =
+      jenisSuratView === 'masuk'
+        ? 'Daftar_Surat_Masuk_SDN_Kesilir_02'
+        : jenisSuratView === 'keluar'
+        ? 'Daftar_Surat_Keluar_SDN_Kesilir_02'
+        : 'Arsip_Semua_Surat_SDN_Kesilir_02';
+    const title =
+      jenisSuratView === 'masuk'
+        ? 'DAFTAR ARSIP SURAT MASUK - SD NEGERI KESILIR 02'
+        : jenisSuratView === 'keluar'
+        ? 'DAFTAR ARSIP SURAT KELUAR - SD NEGERI KESILIR 02'
+        : 'DAFTAR ARSIP PERSURATAN LENGKAP - SD NEGERI KESILIR 02';
+    exportLettersToExcel(filteredLetters, prefix, title);
+  };
+
   return (
     <div className="page-content">
       {/* Filter and Action Toolbar */}
@@ -127,7 +145,17 @@ export default function LettersTable({
           )}
         </div>
 
-        <div className="toolbar-actions">
+        <div className="toolbar-actions" style={{ display: 'flex', gap: '8px' }}>
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={handleExportExcel}
+            style={{ color: '#16a34a', borderColor: '#bbf7d0', background: '#f0fdf4' }}
+            title="Download data tabel ke file Excel dengan link unduh bukti"
+          >
+            <Download size={15} />
+            <span>Download Excel</span>
+          </button>
           <button
             className="btn btn-primary btn-sm"
             onClick={() => onOpenAddModal(jenisSuratView === 'all' ? 'masuk' : jenisSuratView)}

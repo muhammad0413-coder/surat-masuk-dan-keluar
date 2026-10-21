@@ -5,6 +5,7 @@ import {
   Send,
   BookOpen,
   FileText,
+  FileCheck,
   Settings,
   LogOut,
   X
@@ -36,10 +37,26 @@ export default function Sidebar({
       section: 'Administrasi Surat'
     },
     {
+      id: 'bukti-masuk',
+      label: 'Bukti Surat Masuk',
+      icon: FileCheck,
+      badge: counts.buktiMasuk,
+      badgeClass: 'masuk',
+      section: 'Administrasi Surat'
+    },
+    {
       id: 'keluar',
       label: 'Surat Keluar',
       icon: Send,
       badge: counts.keluar,
+      badgeClass: 'keluar',
+      section: 'Administrasi Surat'
+    },
+    {
+      id: 'bukti-keluar',
+      label: 'Bukti Surat Keluar',
+      icon: FileCheck,
+      badge: counts.buktiKeluar,
       badgeClass: 'keluar',
       section: 'Administrasi Surat'
     },

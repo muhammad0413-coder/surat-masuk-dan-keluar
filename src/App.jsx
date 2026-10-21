@@ -9,6 +9,7 @@ import PrintAgenda from './components/PrintAgenda';
 import PrintCover from './components/PrintCover';
 import SettingsView from './components/SettingsView';
 import LoginView from './components/LoginView';
+import EvidenceGallery from './components/EvidenceGallery';
 
 import { subscribeAuth, logoutUser } from './services/auth';
 import {
@@ -152,6 +153,10 @@ export default function App() {
         return 'Administrasi Surat Masuk';
       case 'keluar':
         return 'Administrasi Surat Keluar';
+      case 'bukti-masuk':
+        return 'Bukti Surat Masuk';
+      case 'bukti-keluar':
+        return 'Bukti Surat Keluar';
       case 'agenda':
         return 'Buku Agenda Surat Masuk & Keluar';
       case 'cover':
@@ -166,7 +171,9 @@ export default function App() {
   // Counts for sidebar badges
   const counts = {
     masuk: letters.filter((l) => l.jenisSurat === 'masuk').length,
-    keluar: letters.filter((l) => l.jenisSurat === 'keluar').length
+    keluar: letters.filter((l) => l.jenisSurat === 'keluar').length,
+    buktiMasuk: letters.filter((l) => l.jenisSurat === 'masuk' && Array.isArray(l.lampiran) && l.lampiran.length > 0).length,
+    buktiKeluar: letters.filter((l) => l.jenisSurat === 'keluar' && Array.isArray(l.lampiran) && l.lampiran.length > 0).length
   };
 
   // Initial Auth Loading Screen
@@ -220,8 +227,8 @@ export default function App() {
           title={getPageTitle()}
           onOpenSidebar={() => setIsSidebarOpen(true)}
           onOpenAddModal={
-            ['dashboard', 'masuk', 'keluar'].includes(currentView)
-              ? () => handleOpenAddModal(currentView === 'keluar' ? 'keluar' : 'masuk')
+            ['dashboard', 'masuk', 'keluar', 'bukti-masuk', 'bukti-keluar'].includes(currentView)
+              ? () => handleOpenAddModal(['keluar', 'bukti-keluar'].includes(currentView) ? 'keluar' : 'masuk')
               : null
           }
           onReload={loadData}
@@ -259,6 +266,16 @@ export default function App() {
           />
         )}
 
+        {currentView === 'bukti-masuk' && (
+          <EvidenceGallery
+            letters={letters}
+            jenisSurat="masuk"
+            onViewLetter={handleViewLetter}
+            onEditLetter={handleEditLetter}
+            onOpenAddModal={() => handleOpenAddModal('masuk')}
+          />
+        )}
+
         {currentView === 'keluar' && (
           <LettersTable
             letters={letters}
@@ -268,6 +285,16 @@ export default function App() {
             onEditLetter={handleEditLetter}
             onDeleteLetter={handleDeleteLetter}
             loading={dataLoading}
+          />
+        )}
+
+        {currentView === 'bukti-keluar' && (
+          <EvidenceGallery
+            letters={letters}
+            jenisSurat="keluar"
+            onViewLetter={handleViewLetter}
+            onEditLetter={handleEditLetter}
+            onOpenAddModal={() => handleOpenAddModal('keluar')}
           />
         )}
 

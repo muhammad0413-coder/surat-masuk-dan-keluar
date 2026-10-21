@@ -109,7 +109,6 @@ export default function PrintCover({ schoolSettings, onBack }) {
           <h4 style={{ fontSize: '12pt', fontWeight: 600, margin: '3px 0', textTransform: 'uppercase' }}>
             {schoolSettings?.kecamatan || 'KECAMATAN WULUHAN'}
           </h4>
-          <p>{schoolSettings?.alamatSekolah || 'Jl. Kesilir No. 02, Desa Kesilir, Kec. Wuluhan, Kab. Jember, Jawa Timur'}</p>
         </div>
       </div>
     </div>

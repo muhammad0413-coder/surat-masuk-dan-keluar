@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Printer, Filter, Calendar, ArrowLeft } from 'lucide-react';
+import { Printer, Filter, Calendar, ArrowLeft, Download } from 'lucide-react';
+import { exportLettersToExcel } from '../services/excel';
 
 export default function PrintAgenda({
   letters,
@@ -55,6 +56,14 @@ export default function PrintAgenda({
     window.print();
   };
 
+  const handleExportExcel = () => {
+    exportLettersToExcel(
+      agendaList,
+      'Buku_Agenda_SDN_Kesilir_02',
+      `BUKU AGENDA SURAT MASUK DAN SURAT KELUAR - ${getPeriodLabel()}`
+    );
+  };
+
   // Determine period label for title
   const getPeriodLabel = () => {
     if (filterPeriod === 'year') {
@@ -97,12 +106,21 @@ export default function PrintAgenda({
               Cetak Buku Agenda (Format F4 / Folio Landscape)
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748b' }}>
-              Atur filter periode lalu klik Cetak Sekarang untuk mencetak dengan kop dan 9 kolom resmi.
+              Atur filter periode lalu cetak atau unduh rekapan ke file Excel.
             </p>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <button
+            className="btn btn-secondary"
+            onClick={handleExportExcel}
+            style={{ color: '#16a34a', borderColor: '#bbf7d0', background: '#f0fdf4' }}
+            title="Download data agenda ke spreadsheet Excel beserta tautan bukti"
+          >
+            <Download size={17} />
+            <span>Download Excel</span>
+          </button>
           <button className="btn btn-primary" onClick={handlePrint}>
             <Printer size={17} />
             <span>Cetak Sekarang (F4 Landscape)</span>
@@ -203,7 +221,6 @@ export default function PrintAgenda({
             <h3>{schoolSettings?.dinas || 'DINAS PENDIDIKAN'}</h3>
             <h2>{schoolSettings?.namaSekolah || 'SEKOLAH DASAR NEGERI KESILIR 02'}</h2>
             <h4>{schoolSettings?.kecamatan || 'KECAMATAN WULUHAN'}</h4>
-            <p className="kop-alamat">{schoolSettings?.alamatSekolah || 'Jl. Kesilir No. 02, Desa Kesilir, Kec. Wuluhan, Kab. Jember'}</p>
           </div>
 
           <img
@@ -220,7 +237,7 @@ export default function PrintAgenda({
           <p>{getPeriodLabel()}</p>
         </div>
 
-        {/* 9-Column Mandatory Table */}
+        {/* 8-Column Clean Table (No column numbers, Bukti Surat not in print) */}
         <table className="table-agenda-print">
           <colgroup>
             <col className="col-1" />
@@ -231,25 +248,23 @@ export default function PrintAgenda({
             <col className="col-6" />
             <col className="col-7" />
             <col className="col-8" />
-            <col className="col-9" />
           </colgroup>
           <thead>
             <tr>
-              <th>1<br />No.</th>
-              <th>2<br />Tanggal</th>
-              <th>3<br />Nomor Surat Masuk</th>
-              <th>4<br />Nomor Surat Keluar</th>
-              <th>5<br />Perihal</th>
-              <th>6<br />Alamat Surat</th>
-              <th>7<br />Isi Surat</th>
-              <th>8<br />Keterangan</th>
-              <th className="col-bukti-surat">9<br />Bukti Surat</th>
+              <th>No.</th>
+              <th>Tanggal</th>
+              <th>Nomor Surat Masuk</th>
+              <th>Nomor Surat Keluar</th>
+              <th>Perihal</th>
+              <th>Alamat Surat</th>
+              <th>Isi Surat</th>
+              <th>Keterangan</th>
             </tr>
           </thead>
           <tbody>
             {agendaList.length === 0 ? (
               <tr>
-                <td colSpan="9" style={{ textAlign: 'center', padding: '30px', fontStyle: 'italic' }}>
+                <td colSpan="8" style={{ textAlign: 'center', padding: '30px', fontStyle: 'italic' }}>
                   Tidak ada data agenda surat untuk periode yang dipilih.
                 </td>
               </tr>
@@ -258,55 +273,42 @@ export default function PrintAgenda({
                 const isMasuk = item.jenisSurat === 'masuk';
                 return (
                   <tr key={item.id}>
-                    {/* 1. No */}
+                    {/* No */}
                     <td className="col-center">{index + 1}</td>
 
-                    {/* 2. Tanggal */}
+                    {/* Tanggal */}
                     <td className="col-center" style={{ whiteSpace: 'nowrap' }}>
                       {item.tanggalSurat || '-'}
                     </td>
 
-                    {/* 3. Nomor Surat Masuk */}
+                    {/* Nomor Surat Masuk */}
                     <td>
                       {isMasuk ? (item.nomorSuratMasuk || '-') : '-'}
                     </td>
 
-                    {/* 4. Nomor Surat Keluar */}
+                    {/* Nomor Surat Keluar */}
                     <td>
                       {!isMasuk ? (item.nomorSuratKeluar || '-') : '-'}
                     </td>
 
-                    {/* 5. Perihal */}
+                    {/* Perihal */}
                     <td>
                       {item.perihal || '-'}
                     </td>
 
-                    {/* 6. Alamat Surat */}
+                    {/* Alamat Surat */}
                     <td>
                       {item.alamatSurat || '-'}
                     </td>
 
-                    {/* 7. Isi Surat */}
+                    {/* Isi Surat */}
                     <td>
                       {item.isiSurat || '-'}
                     </td>
 
-                    {/* 8. Keterangan */}
+                    {/* Keterangan */}
                     <td>
                       {item.keterangan || '-'}
-                    </td>
-
-                    {/* 9. Bukti Surat:
-                        CRITICAL PRINT REQUIREMENT:
-                        Column remains visible with borders and width intact,
-                        but its content is hidden/empty on print!
-                    */}
-                    <td className="col-bukti-surat col-center">
-                      <span className="screen-only" style={{ fontSize: '10px', color: '#64748b' }}>
-                        {Array.isArray(item.lampiran) && item.lampiran.length > 0
-                          ? `Ada (${item.lampiran.length})`
-                          : '-'}
-                      </span>
                     </td>
                   </tr>
                 );
