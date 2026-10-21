@@ -10,10 +10,9 @@ import {
   Loader2
 } from 'lucide-react';
 import { loginUser, bootstrapFirstAdmin } from '../services/auth';
-
 export default function LoginView({ onLoginSuccess }) {
-  const [identifier, setIdentifier] = useState('');
-  const [password, setPassword] = useState('');
+  const [identifier, setIdentifier] = useState('admin');
+  const [password, setPassword] = useState('admin');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -123,6 +122,42 @@ export default function LoginView({ onLoginSuccess }) {
             <span>{errorMessage}</span>
           </div>
         )}
+
+        <div style={{
+          background: '#eff6ff',
+          border: '1px solid #bfdbfe',
+          borderRadius: '8px',
+          padding: '10px 14px',
+          marginBottom: '18px',
+          fontSize: '12px',
+          color: '#1e40af',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '8px'
+        }}>
+          <div>
+            <strong>Akses Login Cepat:</strong><br />
+            Username: <code style={{ background: '#dbeafe', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>admin</code> &bull; Password: <code style={{ background: '#dbeafe', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>admin</code>
+          </div>
+          <button
+            type="button"
+            onClick={() => { setIdentifier('admin'); setPassword('admin'); }}
+            style={{
+              background: '#2563eb',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '6px',
+              padding: '6px 12px',
+              fontSize: '11.5px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            Isi Cepat
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group" style={{ marginBottom: '16px' }}>
