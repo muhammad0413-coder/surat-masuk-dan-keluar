@@ -4,15 +4,15 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 
-// Configuration loaded from Vite environment variables
+// Configuration loaded from Vite environment variables with project fallbacks
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyBTs9JSm4mCrZMt6b3A8Flvd3JthVFC5fM',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'surat-4cee8.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'surat-4cee8',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'surat-4cee8.firebasestorage.app',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '314803998850',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:314803998850:web:69366f1f75ac17b7f3249b',
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || 'G-BXYXLQ75CH'
 };
 
 // Validate that required Firebase configuration exists

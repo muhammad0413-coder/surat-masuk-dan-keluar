@@ -13,12 +13,10 @@ service firebase.storage {
       );
     }
 
-    // Letter attachments
+    // Letter attachments (authenticated users can upload within 25MB and allowed types)
     match /letters/{letterId}/{fileName} {
       allow read: if isAuthenticated();
-
-      // Only authorized admins can upload with size (< 25MB) and type validation
-      allow write: if isAdmin()
+      allow write: if isAuthenticated()
         && request.resource.size < 25 * 1024 * 1024
         && (
           request.resource.contentType.matches('application/pdf')
@@ -27,14 +25,13 @@ service firebase.storage {
           || request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
           || request.resource.contentType.matches('application/octet-stream')
         );
-
-      allow delete: if isAdmin();
+      allow delete: if isAuthenticated();
     }
 
     // School logos and branding
     match /assets/{allPaths=**} {
       allow read: if true;
-      allow write: if isAdmin();
+      allow write: if isAuthenticated();
     }
 
     // Default deny

@@ -15,29 +15,26 @@ service cloud.firestore {
     }
 
     // Admins collection:
-    // Users can read their own admin doc to verify their role
-    // Only existing admins can list or write admin docs
+    // Authenticated users can read/write their own admin profile or if they are admin
     match /admins/{userId} {
-      allow get: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
-      allow list: if isAdmin();
-      allow write: if isAdmin();
+      allow get, list: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
     }
 
     // Surat Masuk & Keluar (Letters collection)
-    // Strictly restricted to authorized admins
+    // Accessible to authenticated users of the school
     match /letters/{letterId} {
-      allow read, write: if isAdmin();
+      allow read, write: if isAuthenticated();
     }
 
     // School settings (identity, kepala sekolah, operator, tahun buku)
     match /settings/{settingId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin();
+      allow read, write: if isAuthenticated();
     }
 
     // Audit logs
     match /logs/{logId} {
-      allow read, write: if isAdmin();
+      allow read, write: if isAuthenticated();
     }
 
     // Default deny
